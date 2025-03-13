@@ -1,0 +1,105 @@
+C:\adoxtfs\CAO-CMRAO\CMRAO Solution Components\WorkflowActivities\bin\Debug\CMRAO.Workflows.dll
+C:\adoxtfs\CAO-CMRAO\CMRAO Solution Components\WorkflowActivities\bin\Debug\CMRAO.Workflows.pdb
+C:\adoxtfs\CAO-CMRAO\CMRAO Solution Components\WorkflowActivities\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+C:\adoxtfs\CAO-CMRAO\CMRAO Solution Components\WorkflowActivities\bin\Debug\Microsoft.IdentityModel.dll
+C:\adoxtfs\CAO-CMRAO\CMRAO Solution Components\WorkflowActivities\bin\Debug\Microsoft.Xrm.Sdk.dll
+C:\adoxtfs\CAO-CMRAO\CMRAO Solution Components\WorkflowActivities\bin\Debug\Microsoft.Xrm.Sdk.Workflow.dll
+C:\adoxtfs\CAO-CMRAO\CMRAO Solution Components\WorkflowActivities\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+C:\adoxtfs\CAO-CMRAO\CMRAO Solution Components\WorkflowActivities\bin\Debug\Microsoft.Xrm.Sdk.xml
+C:\adoxtfs\CAO-CMRAO\CMRAO Solution Components\WorkflowActivities\bin\Debug\Microsoft.Xrm.Sdk.Workflow.xml
+C:\adoxtfs\CAO-CMRAO\CMRAO Solution Components\WorkflowActivities\obj\Debug\WorkflowActivities.csproj.CoreCompileInputs.cache
+C:\adoxtfs\CAO-CMRAO\CMRAO Solution Components\WorkflowActivities\obj\Debug\CMRAO.Workflows.dll
+C:\adoxtfs\CAO-CMRAO\CMRAO Solution Components\WorkflowActivities\obj\Debug\CMRAO.Workflows.pdb
+C:\adoxtfs\BC Govt POC - Liquor\CRM Solution Components\WorkflowActivities\bin\Debug\Liquor.Workflows.dll
+C:\adoxtfs\BC Govt POC - Liquor\CRM Solution Components\WorkflowActivities\bin\Debug\Liquor.Workflows.pdb
+C:\adoxtfs\BC Govt POC - Liquor\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+C:\adoxtfs\BC Govt POC - Liquor\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.IdentityModel.dll
+C:\adoxtfs\BC Govt POC - Liquor\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Xrm.Sdk.dll
+C:\adoxtfs\BC Govt POC - Liquor\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Xrm.Sdk.Workflow.dll
+C:\adoxtfs\BC Govt POC - Liquor\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+C:\adoxtfs\BC Govt POC - Liquor\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Xrm.Sdk.xml
+C:\adoxtfs\BC Govt POC - Liquor\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Xrm.Sdk.Workflow.xml
+C:\adoxtfs\BC Govt POC - Liquor\CRM Solution Components\WorkflowActivities\obj\Debug\WorkflowActivities.csproj.CoreCompileInputs.cache
+C:\adoxtfs\BC Govt POC - Liquor\CRM Solution Components\WorkflowActivities\obj\Debug\Liquor.Workflows.dll
+C:\adoxtfs\BC Govt POC - Liquor\CRM Solution Components\WorkflowActivities\obj\Debug\Liquor.Workflows.pdb
+C:\Users\achan\Source\Repos\LCLB Cannabis\CRM Solution Components\WorkflowActivities\bin\Debug\Liquor.Workflows.dll
+C:\Users\achan\Source\Repos\LCLB Cannabis\CRM Solution Components\WorkflowActivities\bin\Debug\Liquor.Workflows.pdb
+C:\Users\achan\Source\Repos\LCLB Cannabis\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+C:\Users\achan\Source\Repos\LCLB Cannabis\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.IdentityModel.dll
+C:\Users\achan\Source\Repos\LCLB Cannabis\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Xrm.Sdk.dll
+C:\Users\achan\Source\Repos\LCLB Cannabis\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Xrm.Sdk.Workflow.dll
+C:\Users\achan\Source\Repos\LCLB Cannabis\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+C:\Users\achan\Source\Repos\LCLB Cannabis\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Xrm.Sdk.xml
+C:\Users\achan\Source\Repos\LCLB Cannabis\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Xrm.Sdk.Workflow.xml
+C:\Users\achan\Source\Repos\LCLB Cannabis\CRM Solution Components\WorkflowActivities\obj\Debug\WorkflowActivities.csproj.CoreCompileInputs.cache
+C:\Users\achan\Source\Repos\LCLB Cannabis\CRM Solution Components\WorkflowActivities\obj\Debug\WorkflowActivities.csproj.CopyComplete
+C:\Users\achan\Source\Repos\LCLB Cannabis\CRM Solution Components\WorkflowActivities\obj\Debug\Liquor.Workflows.dll
+C:\Users\achan\Source\Repos\LCLB Cannabis\CRM Solution Components\WorkflowActivities\obj\Debug\Liquor.Workflows.pdb
+C:\Users\achan\Source\Repos\LCLB Cannabis\CRM Solution Components\WorkflowActivities\obj\Debug\WorkflowActivities.csprojAssemblyReference.cache
+C:\Users\achan\Source\LCRBRepo\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Liquor.Workflows.dll
+C:\Users\achan\Source\LCRBRepo\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Liquor.Workflows.pdb
+C:\Users\achan\Source\LCRBRepo\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+C:\Users\achan\Source\LCRBRepo\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.IdentityModel.dll
+C:\Users\achan\Source\LCRBRepo\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Xrm.Sdk.dll
+C:\Users\achan\Source\LCRBRepo\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Xrm.Sdk.Workflow.dll
+C:\Users\achan\Source\LCRBRepo\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+C:\Users\achan\Source\LCRBRepo\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Xrm.Sdk.xml
+C:\Users\achan\Source\LCRBRepo\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Xrm.Sdk.Workflow.xml
+C:\Users\achan\Source\LCRBRepo\msdynamics\CRM Solution Components\WorkflowActivities\obj\Debug\WorkflowActivities.csproj.CoreCompileInputs.cache
+C:\Users\achan\Source\LCRBRepo\msdynamics\CRM Solution Components\WorkflowActivities\obj\Debug\WorkflowActivities.csproj.CopyComplete
+C:\Users\achan\Source\LCRBRepo\msdynamics\CRM Solution Components\WorkflowActivities\obj\Debug\Liquor.Workflows.dll
+C:\Users\achan\Source\LCRBRepo\msdynamics\CRM Solution Components\WorkflowActivities\obj\Debug\Liquor.Workflows.pdb
+D:\_Personal\Business\Eyedeas Inc\TFS\Quartech\lcrb1\CRM Solution Components\WorkflowActivities\bin\Debug\Liquor.Workflows.dll
+D:\_Personal\Business\Eyedeas Inc\TFS\Quartech\lcrb1\CRM Solution Components\WorkflowActivities\bin\Debug\Liquor.Workflows.pdb
+D:\_Personal\Business\Eyedeas Inc\TFS\Quartech\lcrb1\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+D:\_Personal\Business\Eyedeas Inc\TFS\Quartech\lcrb1\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.IdentityModel.dll
+D:\_Personal\Business\Eyedeas Inc\TFS\Quartech\lcrb1\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Xrm.Sdk.dll
+D:\_Personal\Business\Eyedeas Inc\TFS\Quartech\lcrb1\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Xrm.Sdk.Workflow.dll
+D:\_Personal\Business\Eyedeas Inc\TFS\Quartech\lcrb1\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+D:\_Personal\Business\Eyedeas Inc\TFS\Quartech\lcrb1\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Xrm.Sdk.xml
+D:\_Personal\Business\Eyedeas Inc\TFS\Quartech\lcrb1\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Xrm.Sdk.Workflow.xml
+D:\_Personal\Business\Eyedeas Inc\TFS\Quartech\lcrb1\CRM Solution Components\WorkflowActivities\obj\Debug\WorkflowActivities.csprojAssemblyReference.cache
+D:\_Personal\Business\Eyedeas Inc\TFS\Quartech\lcrb1\CRM Solution Components\WorkflowActivities\obj\Debug\WorkflowActivities.csproj.CoreCompileInputs.cache
+D:\_Personal\Business\Eyedeas Inc\TFS\Quartech\lcrb1\CRM Solution Components\WorkflowActivities\obj\Debug\WorkflowActivities.csproj.CopyComplete
+D:\_Personal\Business\Eyedeas Inc\TFS\Quartech\lcrb1\CRM Solution Components\WorkflowActivities\obj\Debug\Liquor.Workflows.dll
+D:\_Personal\Business\Eyedeas Inc\TFS\Quartech\lcrb1\CRM Solution Components\WorkflowActivities\obj\Debug\Liquor.Workflows.pdb
+C:\Users\achan.APPDEPOT\Source\Repos\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Liquor.Workflows.dll
+C:\Users\achan.APPDEPOT\Source\Repos\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Liquor.Workflows.pdb
+C:\Users\achan.APPDEPOT\Source\Repos\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+C:\Users\achan.APPDEPOT\Source\Repos\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.IdentityModel.dll
+C:\Users\achan.APPDEPOT\Source\Repos\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Xrm.Sdk.dll
+C:\Users\achan.APPDEPOT\Source\Repos\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Xrm.Sdk.Workflow.dll
+C:\Users\achan.APPDEPOT\Source\Repos\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+C:\Users\achan.APPDEPOT\Source\Repos\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Xrm.Sdk.xml
+C:\Users\achan.APPDEPOT\Source\Repos\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Xrm.Sdk.Workflow.xml
+C:\Users\achan.APPDEPOT\Source\Repos\msdynamics\CRM Solution Components\WorkflowActivities\obj\Debug\WorkflowActivities.csproj.CoreCompileInputs.cache
+C:\Users\achan.APPDEPOT\Source\Repos\msdynamics\CRM Solution Components\WorkflowActivities\obj\Debug\WorkflowActivities.csproj.CopyComplete
+C:\Users\achan.APPDEPOT\Source\Repos\msdynamics\CRM Solution Components\WorkflowActivities\obj\Debug\Liquor.Workflows.dll
+C:\Users\achan.APPDEPOT\Source\Repos\msdynamics\CRM Solution Components\WorkflowActivities\obj\Debug\Liquor.Workflows.pdb
+C:\Users\achan.APPDEPOT\Source\Repos\msdynamics\CRM Solution Components\WorkflowActivities\obj\Debug\WorkflowActivities.csprojAssemblyReference.cache
+C:\Users\achan\Source\Repos\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Liquor.Workflows.dll
+C:\Users\achan\Source\Repos\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Liquor.Workflows.pdb
+C:\Users\achan\Source\Repos\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+C:\Users\achan\Source\Repos\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.IdentityModel.dll
+C:\Users\achan\Source\Repos\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Xrm.Sdk.dll
+C:\Users\achan\Source\Repos\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Xrm.Sdk.Workflow.dll
+C:\Users\achan\Source\Repos\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+C:\Users\achan\Source\Repos\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Xrm.Sdk.xml
+C:\Users\achan\Source\Repos\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Xrm.Sdk.Workflow.xml
+C:\Users\achan\Source\Repos\msdynamics\CRM Solution Components\WorkflowActivities\obj\Debug\WorkflowActivities.csproj.CopyComplete
+C:\Users\achan\Source\Repos\msdynamics\CRM Solution Components\WorkflowActivities\obj\Debug\Liquor.Workflows.dll
+C:\Users\achan\Source\Repos\msdynamics\CRM Solution Components\WorkflowActivities\obj\Debug\Liquor.Workflows.pdb
+C:\Users\andrewcchan\source\repos\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Liquor.Workflows.dll
+C:\Users\andrewcchan\source\repos\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Liquor.Workflows.pdb
+C:\Users\andrewcchan\source\repos\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+C:\Users\andrewcchan\source\repos\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.IdentityModel.dll
+C:\Users\andrewcchan\source\repos\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Xrm.Sdk.dll
+C:\Users\andrewcchan\source\repos\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Xrm.Sdk.Workflow.dll
+C:\Users\andrewcchan\source\repos\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+C:\Users\andrewcchan\source\repos\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Xrm.Sdk.xml
+C:\Users\andrewcchan\source\repos\msdynamics\CRM Solution Components\WorkflowActivities\bin\Debug\Microsoft.Xrm.Sdk.Workflow.xml
+C:\Users\andrewcchan\source\repos\msdynamics\CRM Solution Components\WorkflowActivities\obj\Debug\WorkflowActivities.csproj.CoreCompileInputs.cache
+C:\Users\andrewcchan\source\repos\msdynamics\CRM Solution Components\WorkflowActivities\obj\Debug\WorkflowActivities.csproj.CopyComplete
+C:\Users\andrewcchan\source\repos\msdynamics\CRM Solution Components\WorkflowActivities\obj\Debug\Liquor.Workflows.dll
+C:\Users\andrewcchan\source\repos\msdynamics\CRM Solution Components\WorkflowActivities\obj\Debug\Liquor.Workflows.pdb
+C:\Users\andrewcchan\source\repos\msdynamics\CRM Solution Components\WorkflowActivities\obj\Debug\WorkflowActivities.csprojAssemblyReference.cache

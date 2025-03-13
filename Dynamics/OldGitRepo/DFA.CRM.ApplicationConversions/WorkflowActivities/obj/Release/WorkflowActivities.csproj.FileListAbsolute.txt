@@ -1,0 +1,11 @@
+C:\adoxtfs\CAO-CMRAO\CMRAO Solution Components\WorkflowActivities\bin\Release\CMRAO.Workflows.dll
+C:\adoxtfs\CAO-CMRAO\CMRAO Solution Components\WorkflowActivities\bin\Release\CMRAO.Workflows.pdb
+C:\adoxtfs\CAO-CMRAO\CMRAO Solution Components\WorkflowActivities\bin\Release\Microsoft.Crm.Sdk.Proxy.dll
+C:\adoxtfs\CAO-CMRAO\CMRAO Solution Components\WorkflowActivities\bin\Release\Microsoft.IdentityModel.dll
+C:\adoxtfs\CAO-CMRAO\CMRAO Solution Components\WorkflowActivities\bin\Release\Microsoft.Xrm.Sdk.dll
+C:\adoxtfs\CAO-CMRAO\CMRAO Solution Components\WorkflowActivities\bin\Release\Microsoft.Xrm.Sdk.Workflow.dll
+C:\adoxtfs\CAO-CMRAO\CMRAO Solution Components\WorkflowActivities\bin\Release\Microsoft.Crm.Sdk.Proxy.xml
+C:\adoxtfs\CAO-CMRAO\CMRAO Solution Components\WorkflowActivities\bin\Release\Microsoft.Xrm.Sdk.xml
+C:\adoxtfs\CAO-CMRAO\CMRAO Solution Components\WorkflowActivities\bin\Release\Microsoft.Xrm.Sdk.Workflow.xml
+C:\adoxtfs\CAO-CMRAO\CMRAO Solution Components\WorkflowActivities\obj\Release\CMRAO.Workflows.dll
+C:\adoxtfs\CAO-CMRAO\CMRAO Solution Components\WorkflowActivities\obj\Release\CMRAO.Workflows.pdb

@@ -1,0 +1,175 @@
+<html><head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta>
+    <meta>
+    <meta>
+    <meta>
+    <meta>
+    <meta>
+    <meta>
+    <meta>
+    <meta>
+    <meta>
+    <meta>
+    <meta>
+    <meta>
+    <meta>
+    <meta>
+    <meta>
+    <meta>
+<meta><meta><meta><meta><meta></head>
+<body style="border-width: 0px; border-style: initial; border-color: initial; background-color: rgb(255, 255, 255); margin: 0px; font-family: &quot;Segoe UI&quot;; font-size: 11px; word-wrap: break-word;" onfocusout="parent.setEmailRange();" lang="undefined">
+    <script type="text/javascript">
+
+        // Initializes the iFrame with specified ID. Will print an error message in an element with the specified messagePaneId otherwise
+        function InitDocumentLink(messagePaneId) {
+            // the init object. Just makes storing the variables easier than passing them around in each function call
+            if (typeof String.prototype.endsWith !== 'function') {
+                String.prototype.endsWith = function (suffix) {
+                    return this.indexOf(suffix, this.length - suffix.length) !== -1;
+                };
+            }
+
+            var init = {
+                _messageID: messagePaneId,
+                _relativeFolderURL: '',
+                _siteURL: '',
+                Print: function (msg) {
+                    var debug = true;
+                    try {
+                        if (debug) { console.log(msg); }
+                    } catch (e) { }
+                },
+                run: function () { // the main function to call. It will subsequently call the other ones as each XMLHttpRequest returns
+                    var o = this;
+                    var Xrm = parent.Xrm;
+                    if (!Xrm) { Print('No XRM'); return; }
+
+                    // Find Record GUID
+                    var id = Xrm.Page.data.entity.getId();
+                    id = id.replace('{', '').replace('}', ''); // Get rid of the curly braces
+
+                    // Find the Licence Number for the current record, then recursively work our way up the location tree to build to absolute url.
+                    var urlAttribute = Xrm.Page.getAttribute("dfa_url");
+                    var url = null;
+                    if (urlAttribute != null) {
+                        url = urlAttribute.getValue();
+
+                    } else {
+                        return; // There is no point of continuing if there is no value.
+                    }
+
+                    if (url != null) {
+                        o._relativeFolderURL = url.trim();
+                        o.initExternalIDLink();
+                    }
+                },
+                initExternalIDLink: function () {
+                    var o = this;
+                    //o._siteURL = o._siteURL + (o._siteURL.endsWith('\\') ? '' : '\\');
+                    o.Print("folderUrl: " + o._relativeFolderURL);
+                    // Prints the variables captured so far. The iFrame will be constructed based on these
+
+                    var Xrm = parent.Xrm;
+                    if (!Xrm) { Print('No XRM'); return; }
+
+                    // If there is no result, print an error
+                    if (!o._relativeFolderURL) {
+                        // document.getElementById(o._messageID).innerHTML = '<div style="border: 1px solid red; padding: 50px; margin: 10px; text-align: center;">No documents available</div>';
+                        return;
+                    }
+
+                    var lang = "en-US";
+                    var absoluteFolderURL = o._relativeFolderURL;
+                    var buttonLabel = "CHEF Doc Link";
+                    document.getElementById(o._messageID).innerHTML = '<pre><a id="externalIDLink" class="likebutton" href="' + absoluteFolderURL + '" target="_blank" >Open CHEF Doc Link</a></pre>';
+                    var onClickFunctionText = "window.open('file:" + absoluteFolderURL + "');";
+
+                    //document.getElementById(o._messageID).innerHTML = '<input type="button" onClick="' + onClickFunctionText + '" value = "' + buttonLabel + '" />'; 
+                },
+            };
+
+            init.run();
+        }
+
+
+    </script>
+    <div id="messagePane" style="font-family: undefined;"></div>
+    <script type="text/javascript">
+        InitDocumentLink('messagePane');
+    </script>
+    <style>
+        #externalIDLink {
+            -webkit-appearance: button;
+            -moz-appearance: button;
+            appearance: button;
+            font-size: 1.2em;
+            padding: 0 25px;
+            text-decoration: none;
+            color: initial;
+            border-width: 1px;
+            border-style: solid;
+            border-color: #666666;
+        }
+
+        @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+            /* IE10+ CSS styles go here */
+            .likebutton {
+                background-color: #00CCFF;
+                padding: 8px 16px;
+                display: inline-block;
+                text-decoration: none;
+                font-family: "Segoe UI";
+                color: #333333;
+                font-size: 1.2em word-wrap: break-word;
+                min-width: 84px width:auto;
+                white-space: nowrap;
+                border-color: #999999;
+                /*    height: 20px; */
+                text-align: center;
+                cursor: pointer;
+                border-width: 1px;
+                border-style: solid;
+                background-repeat: repeat-x;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+
+                .likebutton:hover {
+                    border-color: #666666;
+                }
+        }
+    </style>
+    <!--[if IE]>
+    <style>
+    .likebutton {
+             background-color: #00CCFF;
+             padding: 8px 16px;
+             display: inline-block;
+             text-decoration: none;
+        font-family: "Segoe UI";
+    color:#333333;
+        font-size: 1.2em
+        word-wrap: break-word;
+    min-width:84px
+    width:auto;
+    white-space:nowrap;
+        border-color: #999999;
+        background-image: url(/_imgs/theme/Outlook15White/ButtonNormalGradient.png?ver=1480939483);
+    /*    height: 20px; */
+        text-align: center;
+        cursor: pointer;
+        border-width: 1px;
+        border-style: solid;
+        background-repeat: repeat-x;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+      .likebutton:hover{
+        border-color: #666666;
+      }
+    </style>
+    <![endif]-->
+
+</body></html>

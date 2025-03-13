@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34511.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFA.Portal.CustomActivitiesDFAE", "DFA.Portal.CustomActivitiesDFAE.csproj", "{BC933B92-882A-42D4-8097-59819B90CF79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFA.Custom.Actions", "..\Users\User\OneDrive\Desktop\DynamicsCustomizations (1)\DynamicsCustomizations\DFA.Custom.Actions\DFA.Custom.Actions.csproj", "{DF3AB32E-AADC-4655-9D67-B45576D7095C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BC933B92-882A-42D4-8097-59819B90CF79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC933B92-882A-42D4-8097-59819B90CF79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC933B92-882A-42D4-8097-59819B90CF79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC933B92-882A-42D4-8097-59819B90CF79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF3AB32E-AADC-4655-9D67-B45576D7095C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF3AB32E-AADC-4655-9D67-B45576D7095C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF3AB32E-AADC-4655-9D67-B45576D7095C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF3AB32E-AADC-4655-9D67-B45576D7095C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {03DA47CC-F819-4B3C-8B55-D6A2A50504BB}
+	EndGlobalSection
+EndGlobal
