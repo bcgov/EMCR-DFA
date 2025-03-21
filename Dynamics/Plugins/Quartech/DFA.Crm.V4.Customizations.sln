@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DFA.Crm.V4.Common", "DFA.Crm.V4.Common\DFA.Crm.V4.Common.shproj", "{F0B673E6-34B7-469C-A969-03AA2C9AC5C1}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DFA.Crm.V4.Core", "DFA.Crm.V4.Core\DFA.Crm.V4.Core.shproj", "{6A83F8CA-22F9-4425-8227-B0E4A4EAED98}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DFA.Crm.V4.Data", "DFA.Crm.V4.Data\DFA.Crm.V4.Data.shproj", "{E7DFE68F-40D3-4155-BBFC-BE41FA6203E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFA.Crm.V4.WorkFlow", "DFA.Crm.V4.WorkFlow\DFA.Crm.V4.WorkFlow.csproj", "{F8D91A3F-291F-45DB-A2BA-C137B203555C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{402F6BEE-6A3F-4996-B9CE-AA246380B651}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F8D91A3F-291F-45DB-A2BA-C137B203555C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8D91A3F-291F-45DB-A2BA-C137B203555C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8D91A3F-291F-45DB-A2BA-C137B203555C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8D91A3F-291F-45DB-A2BA-C137B203555C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F0B673E6-34B7-469C-A969-03AA2C9AC5C1} = {402F6BEE-6A3F-4996-B9CE-AA246380B651}
+		{6A83F8CA-22F9-4425-8227-B0E4A4EAED98} = {402F6BEE-6A3F-4996-B9CE-AA246380B651}
+		{E7DFE68F-40D3-4155-BBFC-BE41FA6203E8} = {402F6BEE-6A3F-4996-B9CE-AA246380B651}
+		{F8D91A3F-291F-45DB-A2BA-C137B203555C} = {402F6BEE-6A3F-4996-B9CE-AA246380B651}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		DFA.Crm.V4.Core\PABI.Crm.Core.projitems*{6a83f8ca-22f9-4425-8227-b0e4a4eaed98}*SharedItemsImports = 13
+		DFA.Crm.V4.Data\PABI.Crm.Data.projitems*{e7dfe68f-40d3-4155-bbfc-be41fa6203e8}*SharedItemsImports = 13
+		DFA.Crm.V4.Common\PABI.Crm.Common.projitems*{f0b673e6-34b7-469c-a969-03aa2c9ac5c1}*SharedItemsImports = 13
+		DFA.Crm.V4.Common\PABI.Crm.Common.projitems*{f8d91a3f-291f-45db-a2ba-c137b203555c}*SharedItemsImports = 4
+		DFA.Crm.V4.Core\PABI.Crm.Core.projitems*{f8d91a3f-291f-45db-a2ba-c137b203555c}*SharedItemsImports = 4
+		DFA.Crm.V4.Data\PABI.Crm.Data.projitems*{f8d91a3f-291f-45db-a2ba-c137b203555c}*SharedItemsImports = 4
+	EndGlobalSection
+EndGlobal
