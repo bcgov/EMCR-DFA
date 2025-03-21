@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>1ce7073d-2d02-4f5d-8f70-b35ece0c4ea3</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>DFA.Crm.V4.Core</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Base\Contract\IDeleteRecordProcess.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Base\Process\DeleteRecordProcess.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)bcgov_documenturl\Contract\ICreateDocumentTemplateProcess.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)bcgov_documenturl\Process\CreateDocumentTemplateProcess.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\Contract\IProjectOperationsProcess.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\Process\ProjectOperationsProcess.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)S3\Contract\IUploadDocumentToS3Process.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)S3\Process\UploadDocumentToS3Process.cs" />
+  </ItemGroup>
+</Project>
