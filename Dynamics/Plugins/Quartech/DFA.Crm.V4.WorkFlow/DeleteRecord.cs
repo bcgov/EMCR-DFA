@@ -14,7 +14,7 @@ using DFA.Crm.V4.Data.S3.Contract;
 using DFA.Crm.V4.Data.S3.Repository;
 using Microsoft.Xrm.Sdk.Workflow;
 
-namespace DFA.Crm.V4.WorkFlow
+namespace DFA.Crm.V3.WorkFlow
 {
     public class DeleteRecord : CodeActivity
     {

@@ -116,6 +116,7 @@ namespace DFA.Crm.V4.WorkFlow
             }
             catch (Exception ex)
             {
+                throw ex;
                 Result.Set(executionContext, false);
                 ErrorMessage.Set(executionContext, ex.Message);
                 DocumentId.Set(executionContext, null);
