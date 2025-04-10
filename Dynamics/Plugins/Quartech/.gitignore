@@ -1,0 +1,85 @@
+# Build results
+bin/
+obj/
+Debug/
+Release/
+TestResults/
+*.pdb
+*.exe
+*.dll
+*.appx
+*.appxbundle
+*.msi
+*.nupkg
+*.snupkg
+*.cache
+*.ilk
+*.log
+*.suo
+*.user
+*.psess
+*.vspx
+*.vsp
+*.vspf
+*.vsps
+*.vspx
+
+# Visual Studio specific
+.vs/
+*.csproj.user
+*.userosscache
+*.userosscache.json
+*.sln.docstates
+*.sln.ide
+*.suo
+*.rsuser
+*.sln.cache
+*.VC.db
+
+# NuGet packages
+*.nupkg
+*.snupkg
+packages/
+*.nuget.props
+.nuget/
+
+# Resharper and Rider
+*.DotSettings.user
+*_Resharper.*
+.ReSharper/
+
+# Code coverage results
+*.coverage
+*.coveragexml
+*.coveragejson
+
+# Web publish
+.publish/
+.PublishedWebsites/
+
+# Node.js and NPM (if you have frontend code)
+node_modules/
+npm-debug.log
+yarn.lock
+package-lock.json
+
+# Miscellaneous
+*.bak
+*.tmp
+*.old
+*.orig
+*.rej
+*.log
+*.lck
+
+# Config files and secrets
+appsettings.json
+appsettings.Development.json
+secrets.json
+*.config.user
+
+# Temporary files
+*.tmp
+*.cache
+*.temp
+*.pid
