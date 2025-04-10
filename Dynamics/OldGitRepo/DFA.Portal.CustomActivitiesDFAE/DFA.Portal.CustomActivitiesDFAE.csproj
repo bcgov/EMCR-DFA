@@ -133,5 +133,11 @@
     <None Include="DFAPortal.pfx" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DFA.Custom.Actions\DFA.Custom.Actions.csproj">
+      <Project>{df3ab32e-aadc-4655-9d67-b45576d7095c}</Project>
+      <Name>DFA.Custom.Actions</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
