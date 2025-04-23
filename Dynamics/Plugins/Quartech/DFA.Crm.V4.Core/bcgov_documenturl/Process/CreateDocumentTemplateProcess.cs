@@ -22,7 +22,7 @@ namespace DFA.Crm.V4.Core.bcgov_documenturl.Process
             this.ibcgov_DocumenturlRepository = ibcgov_DocumenturlRepository;
         }
 
-        public IUploadToS3Response Execute(IUploadToS3Request request)
+        public IS3Response Execute(IUploadToS3Request request)
         {
             if(request != null)
             {

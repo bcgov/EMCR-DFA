@@ -5,13 +5,13 @@ using DFA.Crm.V4.Common.Model.Interface;
 
 namespace DFA.Crm.V4.Core.S3.Contract
 {
-    public interface IUploadDocumentToS3Process
+    public interface IDeleteocumentFromS3Process
     {
-        IS3Response Execute(IUploadToS3Request request);
+        IS3Response Execute(string fileName, string location);
 
         string GetAuthToken(string url, string clientId, string secret);
 
-        IS3Response UploadFileToS3(IUploadToS3Request request, string url, string token);
+        IS3Response DeleteOrTagInS3(string apiUrl, string fileName, string location, string token);
 
 
     }

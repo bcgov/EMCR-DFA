@@ -89,7 +89,7 @@ namespace DFA.Crm.V4.WorkFlow
 
                 if (documentData != null)
                 {
-                    Ibcgov_documenturlRepository ibcgov_DocumenturlRepository = new bcgov_documenturlRepository(xrmService.SystemService);
+                    Ibcgov_documenturlRepository ibcgov_DocumenturlRepository = new bcgov_documenturlRepository(xrmService.UserService);
 
                     ICreateDocumentTemplateProcess process = new CreateDocumentTemplateProcess(xrmService, ibcgov_DocumenturlRepository);
 
@@ -116,7 +116,6 @@ namespace DFA.Crm.V4.WorkFlow
             }
             catch (Exception ex)
             {
-                throw ex;
                 Result.Set(executionContext, false);
                 ErrorMessage.Set(executionContext, ex.Message);
                 DocumentId.Set(executionContext, null);

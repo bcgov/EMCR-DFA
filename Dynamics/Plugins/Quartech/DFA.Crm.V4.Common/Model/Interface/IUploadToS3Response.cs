@@ -5,7 +5,7 @@ using Microsoft.Xrm.Sdk;
 
 namespace DFA.Crm.V4.Common.Model.Interface
 {
-    public interface IUploadToS3Response
+    public interface IS3Response
     {
         string DerivedFileName { get; set; }
 

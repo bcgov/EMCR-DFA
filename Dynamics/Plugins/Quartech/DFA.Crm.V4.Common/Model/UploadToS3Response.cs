@@ -6,7 +6,7 @@ using Microsoft.Xrm.Sdk;
 
 namespace DFA.Crm.V4.Common.Model
 {
-    internal class UploadToS3Response : IUploadToS3Response
+    internal class UploadToS3Response : IS3Response
     {
         public string DerivedFileName { get; set; }
         public EntityReference DocumentTemplate { get; set; }
