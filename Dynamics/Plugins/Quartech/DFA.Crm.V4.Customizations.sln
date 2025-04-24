@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFA.Crm.V4.WorkFlow", "DFA.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{402F6BEE-6A3F-4996-B9CE-AA246380B651}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFA.Crm.V4.CustomAPI", "DFA.Crm.V4.CustomAPI\DFA.Crm.V4.CustomAPI.csproj", "{368D5A15-DD9B-42EF-B564-DF8661BFD364}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{F8D91A3F-291F-45DB-A2BA-C137B203555C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8D91A3F-291F-45DB-A2BA-C137B203555C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8D91A3F-291F-45DB-A2BA-C137B203555C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{368D5A15-DD9B-42EF-B564-DF8661BFD364}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{368D5A15-DD9B-42EF-B564-DF8661BFD364}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{368D5A15-DD9B-42EF-B564-DF8661BFD364}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{368D5A15-DD9B-42EF-B564-DF8661BFD364}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,8 +38,15 @@ Global
 		{6A83F8CA-22F9-4425-8227-B0E4A4EAED98} = {402F6BEE-6A3F-4996-B9CE-AA246380B651}
 		{E7DFE68F-40D3-4155-BBFC-BE41FA6203E8} = {402F6BEE-6A3F-4996-B9CE-AA246380B651}
 		{F8D91A3F-291F-45DB-A2BA-C137B203555C} = {402F6BEE-6A3F-4996-B9CE-AA246380B651}
+		{368D5A15-DD9B-42EF-B564-DF8661BFD364} = {402F6BEE-6A3F-4996-B9CE-AA246380B651}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {90214DB5-2E3A-4678-90D4-751400ABAB32}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		DFA.Crm.V4.Common\PABI.Crm.Common.projitems*{368d5a15-dd9b-42ef-b564-df8661bfd364}*SharedItemsImports = 4
+		DFA.Crm.V4.Core\PABI.Crm.Core.projitems*{368d5a15-dd9b-42ef-b564-df8661bfd364}*SharedItemsImports = 4
+		DFA.Crm.V4.Data\PABI.Crm.Data.projitems*{368d5a15-dd9b-42ef-b564-df8661bfd364}*SharedItemsImports = 4
 		DFA.Crm.V4.Core\PABI.Crm.Core.projitems*{6a83f8ca-22f9-4425-8227-b0e4a4eaed98}*SharedItemsImports = 13
 		DFA.Crm.V4.Data\PABI.Crm.Data.projitems*{e7dfe68f-40d3-4155-bbfc-be41fa6203e8}*SharedItemsImports = 13
 		DFA.Crm.V4.Common\PABI.Crm.Common.projitems*{f0b673e6-34b7-469c-a969-03aa2c9ac5c1}*SharedItemsImports = 13
