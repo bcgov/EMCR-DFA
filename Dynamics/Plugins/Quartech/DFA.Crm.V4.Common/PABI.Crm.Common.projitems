@@ -20,6 +20,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IProcessRule.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IXrmProcess.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\CAS\CASEnumeration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CAS\CASGenerateInvoice.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\CAS\CASSupplierSearchResponse.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\CAS\CASSupplier.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\CAS\CASInvoice.cs" />
@@ -28,6 +29,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\CAS\CASPaymentSearchResponse.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\CAS\CASInvoiceSearchResponse.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\CAS\CASPayment.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Interface\ICASGenerateInvoiceResponse.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Interface\ICASSupplierSearchResponse.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Interface\ICASSupplierSearchRequest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Interface\ICASInvoiceSearchRequest.cs" />

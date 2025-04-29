@@ -207,6 +207,7 @@ namespace DFA.Crm.V4.Common.Constants
         {
             { "InvoiceURL", "invoice/" },
             { "PaymentURL", "payment/" },
+            { "GenerateInvoiceURL", "Invoice/" },
             { "SupplierBusinessNumber", "supplier/" },
             { "SupplierNumber", "supplier/" },
             { "SupplierPostalCode", "supplierbyname/" },

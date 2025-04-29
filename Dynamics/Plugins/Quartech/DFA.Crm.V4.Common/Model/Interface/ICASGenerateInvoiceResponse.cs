@@ -4,9 +4,9 @@ using System.Text;
 
 namespace DFA.Crm.V3.Common.Model.Interface
 {
-    interface ICASSupplierSearchResponse : ICASBaseSearchResponse
+    interface ICASGenerateInvoiceResponse : ICASBaseSearchResponse
     {
-        string Suppliers { get; set; }
+        string Invoice { get; set; }
 
     }
 }

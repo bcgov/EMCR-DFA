@@ -5,14 +5,14 @@ using System.Text;
 
 namespace DFA.Crm.V3.Common.Model.CAS
 {
-    class CASPaymentSearchResponse : ICASPaymentSearchResponse
+    class CASGenerateInvoiceResponse : ICASGenerateInvoiceResponse
     {
-        public CASPaymentSearchResponse()
+        public CASGenerateInvoiceResponse()
         {
             Result = true;
         }
         public bool Result { get; set; }
         public string ErrorMessage { get; set; }
-        public string Payment { get; set; }
+        public string Invoice { get; set; }
     }
 }

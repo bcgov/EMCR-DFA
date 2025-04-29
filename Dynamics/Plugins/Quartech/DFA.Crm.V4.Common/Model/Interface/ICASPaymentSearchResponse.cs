@@ -8,7 +8,7 @@ namespace DFA.Crm.V3.Common.Model.Interface
 
     interface ICASPaymentSearchResponse : ICASBaseSearchResponse
     {
-        CASPayment Payment { get; set; }
+        string Payment { get; set; }
 
     }
 }

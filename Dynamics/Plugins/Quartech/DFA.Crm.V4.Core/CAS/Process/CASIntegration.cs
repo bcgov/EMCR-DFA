@@ -10,9 +10,13 @@ using DFA.Crm.V4.Data.bcgov_config.Repository;
 using DFA.Crm.V4.Data.S3.Contract;
 using DFA.Crm.V4.Data.S3.Repository;
 using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Query;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using System.Windows.Documents;
 
 namespace DFA.Crm.V4.Core.CAS.Process
@@ -56,28 +60,46 @@ namespace DFA.Crm.V4.Core.CAS.Process
             {
                 if (_pluginExecutionContext.InputParameters.Contains("dfa_cas_invoice_search_capi_request"))
                 {
-                    request = JsonConvert.DeserializeObject<CASInvoiceSearchRequest>(_pluginExecutionContext.InputParameters["dfa_cas_invoice_search_capi_request"].ToString());
-                    if (!request.IsValid())
+                    try
                     {
-                        _tracingService.Trace("Input parameter is invalid");
-                        response.Result = false;
-                        response.ErrorMessage = "Input parameter is invalid";
-                    }
-                    else
-                    {
-                        Ibcgov_configRepository bcgovConfigRepository = new bcgov_configRepository(_organizationService);
-                        IAuthenticationRepository authenticationRepository = new AuthenticationRepository();
-                        try
+                        var json = _pluginExecutionContext.InputParameters["dfa_cas_invoice_search_capi_request"]?.ToString();
+
+                        request = JsonConvert.DeserializeObject<CASInvoiceSearchRequest>(json);
+
+                        if (!request.IsValid())
                         {
-                            CASInvoiceSearch(bcgovConfigRepository, authenticationRepository, request, ref response);
-                        }
-                        catch (Exception ex)
-                        {
-                            _tracingService.Trace("Exception occurred: " + ex.Message);
+                            _tracingService.Trace("Input parameter is invalid");
                             response.Result = false;
-                            response.ErrorMessage = "An error occurred while processing the request: " + ex.Message;
+                            response.ErrorMessage = "Input parameter is invalid";
                         }
-                        
+                        else
+                        {
+                            Ibcgov_configRepository bcgovConfigRepository = new bcgov_configRepository(_organizationService);
+                            IAuthenticationRepository authenticationRepository = new AuthenticationRepository();
+                            try
+                            {
+                                CASInvoiceSearch(bcgovConfigRepository, authenticationRepository, request, ref response);
+                            }
+                            catch (Exception ex)
+                            {
+                                _tracingService.Trace("Exception occurred: " + ex.Message);
+                                response.Result = false;
+                                response.ErrorMessage = "An error occurred while processing the request: " + ex.Message;
+                            }
+
+                        }
+                    }
+                    catch (JsonException ex)
+                    {
+                        response.Result = false;
+                        response.ErrorMessage = $"Invalid JSON format: {ex.Message}";
+                        _tracingService.Trace(response.ErrorMessage);
+                    }
+                    catch (Exception ex)
+                    {
+                        response.Result = false;
+                        response.ErrorMessage = $"Unexpected error: {ex.Message}";
+                        _tracingService.Trace(response.ErrorMessage);
                     }
                 }
                 else
@@ -99,26 +121,26 @@ namespace DFA.Crm.V4.Core.CAS.Process
             if (!configuration.TryGetValue("AuthUrl", out string authUrl) || string.IsNullOrEmpty(authUrl))
             {
                 response.Result = false;
-                response.ErrorMessage = "The 'AuthUrl' system configuration is null or missing value for the group 'Storage'";
+                response.ErrorMessage = "The 'AuthUrl' system configuration is null or missing value for the group 'OpenShiftAPIGateway'";
                 return;
             }
 
             if (!configuration.TryGetValue("AuthClientId", out string clientId) || string.IsNullOrEmpty(clientId))
             {
                 response.Result = false;
-                response.ErrorMessage = "The 'AuthClientId' system configuration is null or missing value for the group 'Storage'";
+                response.ErrorMessage = "The 'AuthClientId' system configuration is null or missing value for the group 'OpenShiftAPIGateway'";
                 return;
             }
             if (!configuration.TryGetValue("AuthSecret", out string clientSecret) || string.IsNullOrEmpty(clientSecret))
             {
                 response.Result = false;
-                response.ErrorMessage = "The 'AuthSecret' system configuration is null or missing value for the group 'Storage'";
+                response.ErrorMessage = "The 'AuthSecret' system configuration is null or missing value for the group 'OpenShiftAPIGateway'";
                 return;
             }
             if (!configuration.TryGetValue("InterfaceUrl", out string uploadAPi) || string.IsNullOrEmpty(uploadAPi))
             {
                 response.Result = false;
-                response.ErrorMessage = "The 'InterfaceUrl' system configuration is null or missing value for the group 'Storage'";
+                response.ErrorMessage = "The 'InterfaceUrl' system configuration is null or missing value for the group 'OpenShiftAPIGateway'";
                 return;
             }
 
@@ -130,19 +152,18 @@ namespace DFA.Crm.V4.Core.CAS.Process
                 response.ErrorMessage = "Unable to retrieve the authentication token for file upload, please make sure the configurations are correct!";
                 return;
             }
-
-            CallOpenShiftInvoiceSearchAPI(request,  ref response, authToken, uploadAPi);
+            CallOpenShiftInvoiceSearchAPI(request, ref response, authToken, uploadAPi);
         }
         private void CallOpenShiftInvoiceSearchAPI(ICASInvoiceSearchRequest request, ref ICASInvoiceSearchResponse response,
             AccessToken authToken, string endPoint)
         {
             using (var client = new System.Net.Http.HttpClient())
             {
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + authToken);
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + authToken.access_token);
 
-                Constants.CASAPIUrlDictionary.TryGetValue("InvoiceSearch", out string searchURL);
+                Constants.CASAPIUrlDictionary.TryGetValue("InvoiceURL", out string searchURL);
 
-                endPoint = $"{endPoint}/api/" + searchURL + request.InvoiceNumber + "/" + request.SupplierNumber + "/" + request.SupplierSiteCode;
+                endPoint = $"{endPoint}" + searchURL + request.InvoiceNumber + "/" + request.SupplierNumber + "/" + request.SupplierSiteCode;
 
                 var httpResponse = client.GetAsync(endPoint).Result;
 
@@ -154,14 +175,71 @@ namespace DFA.Crm.V4.Core.CAS.Process
                 else
                 {
                     var responseData = httpResponse.Content.ReadAsStringAsync().Result;
-                    var invoice = Newtonsoft.Json.JsonConvert.DeserializeObject<CASInvoice>(responseData);
 
                     response.Result = true;
-                    response.Invoice = invoice;
+                    response.Invoice = responseData;
                 }
             }
         }
 
+        public void SearchPayment()
+        {
+            ICASInvoiceSearchRequest request = new CASInvoiceSearchRequest();
+            ICASPaymentSearchResponse response = new CASPaymentSearchResponse();
+
+            if (_pluginExecutionContext.MessageName == null || !_pluginExecutionContext.MessageName.Equals("dfa_cas_payment_search_capi"))
+            {
+                _tracingService.Trace("MessageName is null or wrong");
+                response.Result = false;
+                response.ErrorMessage = "MessageName is null or wrong";
+            }
+            else
+            {
+                if (_pluginExecutionContext.InputParameters.Contains("dfa_cas_payment_search_capi_request"))
+                {
+                    try
+                    {
+                        var json = _pluginExecutionContext.InputParameters["dfa_cas_payment_search_capi_request"]?.ToString();
+
+                        request = JsonConvert.DeserializeObject<CASInvoiceSearchRequest>(json);
+
+                        if (!request.IsValid())
+                        {
+                            _tracingService.Trace("Input parameter is invalid");
+                            response.Result = false;
+                            response.ErrorMessage = "Input parameter is invalid";
+                        }
+                        else
+                        {
+                            Ibcgov_configRepository bcgovConfigRepository = new bcgov_configRepository(_organizationService);
+                            IAuthenticationRepository authenticationRepository = new AuthenticationRepository();
+                            CASPaymentSearch(bcgovConfigRepository, authenticationRepository, request, ref response);
+                        }
+                    }
+                    catch (JsonException ex)
+                    {
+                        response.Result = false;
+                        response.ErrorMessage = $"Invalid JSON format: {ex.Message}";
+                        _tracingService.Trace(response.ErrorMessage);
+                    }
+                    catch (Exception ex)
+                    {
+                        response.Result = false;
+                        response.ErrorMessage = $"Unexpected error: {ex.Message}";
+                        _tracingService.Trace(response.ErrorMessage);
+                    }
+                }
+                else
+                {
+                    _tracingService.Trace("Input parameter is null or empty");
+                    response.Result = false;
+                    response.ErrorMessage = "Input parameter is null or empty";
+                }
+            }
+
+            _pluginExecutionContext.OutputParameters["dfa_cas_payment_search_capi_response"] = JsonConvert.SerializeObject(response);
+
+        }
         private void CASPaymentSearch(Ibcgov_configRepository bcgovConfigRepository, IAuthenticationRepository authenticationRepository,
             ICASInvoiceSearchRequest request, ref ICASPaymentSearchResponse response)
         {
@@ -170,26 +248,26 @@ namespace DFA.Crm.V4.Core.CAS.Process
             if (!configuration.TryGetValue("AuthUrl", out string authUrl) || string.IsNullOrEmpty(authUrl))
             {
                 response.Result = false;
-                response.ErrorMessage = "The 'AuthUrl' system configuration is null or missing value for the group 'Storage'";
+                response.ErrorMessage = "The 'AuthUrl' system configuration is null or missing value for the group 'OpenShiftAPIGateway'";
                 return;
             }
 
             if (!configuration.TryGetValue("AuthClientId", out string clientId) || string.IsNullOrEmpty(clientId))
             {
                 response.Result = false;
-                response.ErrorMessage = "The 'AuthClientId' system configuration is null or missing value for the group 'Storage'";
+                response.ErrorMessage = "The 'AuthClientId' system configuration is null or missing value for the group 'OpenShiftAPIGateway'";
                 return;
             }
             if (!configuration.TryGetValue("AuthSecret", out string clientSecret) || string.IsNullOrEmpty(clientSecret))
             {
                 response.Result = false;
-                response.ErrorMessage = "The 'AuthSecret' system configuration is null or missing value for the group 'Storage'";
+                response.ErrorMessage = "The 'AuthSecret' system configuration is null or missing value for the group 'OpenShiftAPIGateway'";
                 return;
             }
             if (!configuration.TryGetValue("InterfaceUrl", out string uploadAPi) || string.IsNullOrEmpty(uploadAPi))
             {
                 response.Result = false;
-                response.ErrorMessage = "The 'InterfaceUrl' system configuration is null or missing value for the group 'Storage'";
+                response.ErrorMessage = "The 'InterfaceUrl' system configuration is null or missing value for the group 'OpenShiftAPIGateway'";
                 return;
             }
 
@@ -209,9 +287,9 @@ namespace DFA.Crm.V4.Core.CAS.Process
         {
             using (var client = new System.Net.Http.HttpClient())
             {
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + authToken);
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + authToken.access_token);
 
-                Constants.CASAPIUrlDictionary.TryGetValue("PaymentSearch", out string searchURL);
+                Constants.CASAPIUrlDictionary.TryGetValue("PaymentURL", out string searchURL);
 
                 endPoint = $"{endPoint}/api/" + searchURL + request.InvoiceNumber + "/" + request.SupplierNumber + "/" + request.SupplierSiteCode;
 
@@ -232,55 +310,13 @@ namespace DFA.Crm.V4.Core.CAS.Process
                   ""paymentStatus"": ""VOIDED"",  
                   ""paymentStatusDate"": ""06-OCT-2018 00:00:00""         
                 }}";
-                var payment = Newtonsoft.Json.JsonConvert.DeserializeObject<CASPayment>(responseData);
 
                 response.Result = true;
 
                 // No other changes are needed in the file as the issue is caused by the missing namespace reference.
-                response.Payment = payment;
+                response.Payment = responseData;
             }
         }
-
-        public void SearchPayment()
-        {
-            ICASInvoiceSearchRequest request = new CASInvoiceSearchRequest();
-            ICASPaymentSearchResponse response = new CASPaymentSearchResponse();
-
-            if (_pluginExecutionContext.MessageName == null || !_pluginExecutionContext.MessageName.Equals("dfa_cas_payment_search_capi"))
-            {
-                _tracingService.Trace("MessageName is null or wrong");
-                response.Result = false;
-                response.ErrorMessage = "MessageName is null or wrong";
-            }
-            else
-            {
-                if (_pluginExecutionContext.InputParameters.Contains("dfa_cas_payment_search_capi_request"))
-                {
-                    request = JsonConvert.DeserializeObject<CASInvoiceSearchRequest>(_pluginExecutionContext.InputParameters["dfa_cas_payment_search_capi_request"].ToString());
-                    if (!request.IsValid())
-                    {
-                        _tracingService.Trace("Input parameter is invalid");
-                        response.Result = false;
-                        response.ErrorMessage = "Input parameter is invalid";
-                    }
-                    else
-                    {
-                        Ibcgov_configRepository bcgovConfigRepository = new bcgov_configRepository(_organizationService);
-                        IAuthenticationRepository authenticationRepository = new AuthenticationRepository();
-                        CASPaymentSearch(bcgovConfigRepository, authenticationRepository, request, ref response);
-                    }
-                }
-                else
-                {
-                    _tracingService.Trace("Input parameter is null or empty");
-                    response.Result = false;
-                    response.ErrorMessage = "Input parameter is null or empty";
-                }
-            }
-
-            _pluginExecutionContext.OutputParameters["dfa_cas_payment_search_capi_response"] = JsonConvert.SerializeObject(response);
-        }
-
         public void SearchSupplier()
         {
             ICASSupplierSearchRequest request = new CASSupplierSearchRequest();
@@ -296,18 +332,36 @@ namespace DFA.Crm.V4.Core.CAS.Process
             {
                 if (_pluginExecutionContext.InputParameters.Contains("dfa_cas_supplier_search_capi_request"))
                 {
-                    request = JsonConvert.DeserializeObject<CASSupplierSearchRequest>(_pluginExecutionContext.InputParameters["dfa_cas_supplier_search_capi_request"].ToString());
-                    if (!request.IsValid())
+                    try
                     {
-                        _tracingService.Trace("Input parameter is invalid");
-                        response.Result = false;
-                        response.ErrorMessage = "Input parameter is invalid";
+                        var json = _pluginExecutionContext.InputParameters["dfa_cas_supplier_search_capi_request"]?.ToString();
+
+                        request = JsonConvert.DeserializeObject<CASSupplierSearchRequest>(json);
+
+                        if (!request.IsValid())
+                        {
+                            _tracingService.Trace("Input parameter is invalid");
+                            response.Result = false;
+                            response.ErrorMessage = "Input parameter is invalid";
+                        }
+                        else
+                        {
+                            Ibcgov_configRepository bcgovConfigRepository = new bcgov_configRepository(_organizationService);
+                            IAuthenticationRepository authenticationRepository = new AuthenticationRepository();
+                            CASSupplierSearch(bcgovConfigRepository, authenticationRepository, request, ref response);
+                        }
                     }
-                    else
+                    catch (JsonException ex)
                     {
-                        Ibcgov_configRepository bcgovConfigRepository = new bcgov_configRepository(_organizationService);
-                        IAuthenticationRepository authenticationRepository = new AuthenticationRepository();
-                        CASSupplierSearch(bcgovConfigRepository, authenticationRepository, request, ref response);
+                        response.Result = false;
+                        response.ErrorMessage = $"Invalid JSON format: {ex.Message}";
+                        _tracingService.Trace(response.ErrorMessage);
+                    }
+                    catch (Exception ex)
+                    {
+                        response.Result = false;
+                        response.ErrorMessage = $"Unexpected error: {ex.Message}";
+                        _tracingService.Trace(response.ErrorMessage);
                     }
                 }
                 else
@@ -329,26 +383,26 @@ namespace DFA.Crm.V4.Core.CAS.Process
             if (!configuration.TryGetValue("AuthUrl", out string authUrl) || string.IsNullOrEmpty(authUrl))
             {
                 response.Result = false;
-                response.ErrorMessage = "The 'AuthUrl' system configuration is null or missing value for the group 'Storage'";
+                response.ErrorMessage = "The 'AuthUrl' system configuration is null or missing value for the group 'OpenShiftAPIGateway'";
                 return;
             }
 
             if (!configuration.TryGetValue("AuthClientId", out string clientId) || string.IsNullOrEmpty(clientId))
             {
                 response.Result = false;
-                response.ErrorMessage = "The 'AuthClientId' system configuration is null or missing value for the group 'Storage'";
+                response.ErrorMessage = "The 'AuthClientId' system configuration is null or missing value for the group 'OpenShiftAPIGateway'";
                 return;
             }
             if (!configuration.TryGetValue("AuthSecret", out string clientSecret) || string.IsNullOrEmpty(clientSecret))
             {
                 response.Result = false;
-                response.ErrorMessage = "The 'AuthSecret' system configuration is null or missing value for the group 'Storage'";
+                response.ErrorMessage = "The 'AuthSecret' system configuration is null or missing value for the group 'OpenShiftAPIGateway'";
                 return;
             }
             if (!configuration.TryGetValue("InterfaceUrl", out string uploadAPi) || string.IsNullOrEmpty(uploadAPi))
             {
                 response.Result = false;
-                response.ErrorMessage = "The 'InterfaceUrl' system configuration is null or missing value for the group 'Storage'";
+                response.ErrorMessage = "The 'InterfaceUrl' system configuration is null or missing value for the group 'OpenShiftAPIGateway'";
                 return;
             }
 
@@ -369,7 +423,7 @@ namespace DFA.Crm.V4.Core.CAS.Process
         {
             using (var client = new System.Net.Http.HttpClient())
             {
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + authToken);
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + authToken.access_token);
 
                 string searchURL = string.Empty;
 
@@ -400,8 +454,6 @@ namespace DFA.Crm.V4.Core.CAS.Process
                         endPoint = $"{endPoint}/api/{searchURL}{request.PartialSupplierNameWithWildcard}";
                         break;
                 }
-
-                _tracingService.Trace(endPoint);
 
                 //var httpResponse = client.GetAsync(endPoint).Result;
 
@@ -490,12 +542,10 @@ namespace DFA.Crm.V4.Core.CAS.Process
 ]";
                 try
                 {
-                    var supplier = Newtonsoft.Json.JsonConvert.DeserializeObject<List<CASSupplier>>(responseData);
-
                     response.Result = true;
 
                     // No other changes are needed in the file as the issue is caused by the missing namespace reference.
-                    response.Suppliers = supplier;
+                    response.Suppliers = responseData;
                 }
                 catch (Exception)
                 {
@@ -525,14 +575,255 @@ namespace DFA.Crm.V4.Core.CAS.Process
 		""lastupdated"": ""2021-06-08 08:44:41""
 	}}
 ]";
-                    var supplier = Newtonsoft.Json.JsonConvert.DeserializeObject<List<CASSupplier>>(temp);
-
                     response.Result = true;
+                    response.Suppliers = responseData;
+                }
 
-                    // No other changes are needed in the file as the issue is caused by the missing namespace reference.
-                    response.Suppliers = supplier;
+            }
+        }
+
+        public void GenerateInvoice(Guid projectclaimid)
+        {
+            CASInvoice invoice = new CASInvoice()
+            {
+                InvoiceType = "Standard",
+                City = "Vancouver",
+                Country = "CA",
+                Province = "BC",
+                PostalCode = "V2T4T4",
+                InvoiceBatchName = "EMCR Test",
+                PayGroup = "GEN CHQ",
+                RemittanceCode = "01",
+                Terms = "Immediate",
+                GLDate = DateTime.UtcNow.ToString("yyyy-MM-dd"),
+                DateInvoiceReceived = DateTime.UtcNow.ToString("yyyy-MM-dd"),
+                RemittanceMessage1 = "21-03304-VIC-Albert, Ida",
+                RemittanceMessage2 = "Income Support-Lost Earning Capacity-Minimum Wage",
+
+                CurrencyCode = "CAD",
+                InvoiceLineDetails = new Invoicelinedetail[1]
+                {
+                    new Invoicelinedetail()
+                    {
+                        InvoiceLineNumber = 1,
+                        InvoiceLineType = "Item",
+                        DefaultDistributionAccount = "010.15004.10250.5298.1500000.000000.0000",
+                        LineCode = "DR",
+                        InvoiceLineAmount = 0
+                    }
+                }
+            };
+            ICASGenerateInvoiceResponse response = new CASGenerateInvoiceResponse();
+            try
+            {
+                var fetch = $@"<fetch xmlns:generator='MarkMpn.SQL4CDS'>
+                  <entity name='dfa_projectclaim'>
+                    <attribute name='dfa_invoicedate' />
+                    <attribute name='dfa_invoicenumber' />
+                    <attribute name='dfa_invoicetotal' />
+                    <attribute name='dfa_suppliernumber' />
+                    <attribute name='dfa_site' />
+                    <attribute name='dfa_claimtotal' />
+                    <attribute name='dfa_claimtype' />
+                    <attribute name='dfa_totalnetinvoicedbeingclaimed' />
+                    <attribute name='dfa_projectnumber' />
+                    <attribute name='dfa_totalactualinvoice' />
+                    <attribute name='dfa_suppliername' />
+                    <attribute name='dfa_codingblocksubmissionstatus' />
+                    <attribute name='dfa_decision' />
+                    <filter>
+                      <condition attribute='dfa_projectclaimid' operator='eq' value='{projectclaimid}' />
+                    </filter>
+                  </entity>
+                </fetch>";
+
+                var projectClaim = _organizationService.RetrieveMultiple(new FetchExpression(fetch)).Entities?.FirstOrDefault();
+                if (!(projectClaim != null && projectClaim.Contains("dfa_decision") 
+                    && (projectClaim.GetAttributeValue<OptionSetValue>("dfa_decision").Value == 222710000
+                    || projectClaim.GetAttributeValue<OptionSetValue>("dfa_decision").Value == 222710003) 
+                    && projectClaim.Contains("dfa_codingblocksubmissionstatus")
+                    && projectClaim.GetAttributeValue<OptionSetValue>("dfa_codingblocksubmissionstatus").Value == 222710002))
+                {
+                    _tracingService.Trace("Project claim is not in a valid state for invoice generation.");
+                    return;
+                }
+                if (projectClaim != null)
+                {
+                    if (projectClaim.Contains("dfa_invoicedate"))
+                    {
+                        invoice.InvoiceDate = projectClaim.GetAttributeValue<DateTime>("dfa_invoicedate").ToString("yyyy-MM-dd");
+                    }
+                    if (projectClaim.Contains("dfa_invoicenumber"))
+                    {
+                        invoice.InvoiceNumber = projectClaim.GetAttributeValue<string>("dfa_invoicenumber");
+                    }
+                    if (projectClaim.Contains("dfa_invoicetotal"))
+                    {
+                        invoice.InvoiceAmount = projectClaim.GetAttributeValue<Money>("dfa_invoicetotal").Value;
+                    }
+                    if (projectClaim.Contains("dfa_suppliernumber"))
+                    {
+                        invoice.SupplierNumber = projectClaim.GetAttributeValue<string>("dfa_suppliernumber");
+                    }
+                    if (projectClaim.Contains("dfa_site"))
+                    {
+                        invoice.SupplierSiteNumber = projectClaim.GetAttributeValue<string>("dfa_site");
+                    }
+                }
+                Ibcgov_configRepository bcgovConfigRepository = new bcgov_configRepository(_organizationService);
+                IAuthenticationRepository authenticationRepository = new AuthenticationRepository();
+                CASGenerateInvoice(bcgovConfigRepository, authenticationRepository, invoice, ref response);
+
+                if (response.Result)
+                {
+                    _tracingService.Trace("Invoice generated successfully. Invoice Number: " + response.Invoice);
+
+                    // Update the project claim with the generated invoice number
+                    var updateClaim = new Entity("dfa_projectclaim", projectclaimid)
+                    {
+                        ["dfa_invoicenumber"] = response.Invoice,
+                        ["dfa_invoicedate"] = DateTime.UtcNow,
+                        ["dfa_codingblocksubmissionstatus"] = new OptionSetValue(222710003)
+                    };
+                    _organizationService.Update(updateClaim);
+                }
+                else
+                {
+                    var updateClaim = new Entity("dfa_projectclaim", projectclaimid)
+                    {
+                        ["dfa_codingblocksubmissionstatus"] = new OptionSetValue(222710004),
+                        ["dfa_lastcodingblocksubmissionerror"] = response.ErrorMessage
+                    };
+                    _organizationService.Update(updateClaim);
+                    _tracingService.Trace("Failed to generate invoice. Error: " + response.ErrorMessage);
                 }
                 
+            }
+            catch (Exception ex)
+            {
+                _tracingService.Trace(ex.Message);
+                throw new InvalidPluginExecutionException($"Exception Happened: {ex.Message}");
+            }
+
+        }
+
+        private void CASGenerateInvoice(Ibcgov_configRepository bcgovConfigRepository, IAuthenticationRepository authenticationRepository,
+            CASInvoice request, ref ICASGenerateInvoiceResponse response)
+        {
+            var configuration = bcgovConfigRepository.GetAllGroupConfigs("OpenShiftAPIGateway");
+
+            if (!configuration.TryGetValue("AuthUrl", out string authUrl) || string.IsNullOrEmpty(authUrl))
+            {
+                response.Result = false;
+                response.ErrorMessage = "The 'AuthUrl' system configuration is null or missing value for the group 'OpenShiftAPIGateway'";
+                return;
+            }
+
+            if (!configuration.TryGetValue("AuthClientId", out string clientId) || string.IsNullOrEmpty(clientId))
+            {
+                response.Result = false;
+                response.ErrorMessage = "The 'AuthClientId' system configuration is null or missing value for the group 'OpenShiftAPIGateway'";
+                return;
+            }
+            if (!configuration.TryGetValue("AuthSecret", out string clientSecret) || string.IsNullOrEmpty(clientSecret))
+            {
+                response.Result = false;
+                response.ErrorMessage = "The 'AuthSecret' system configuration is null or missing value for the group 'OpenShiftAPIGateway'";
+                return;
+            }
+            if (!configuration.TryGetValue("InterfaceUrl", out string uploadAPi) || string.IsNullOrEmpty(uploadAPi))
+            {
+                response.Result = false;
+                response.ErrorMessage = "The 'InterfaceUrl' system configuration is null or missing value for the group 'OpenShiftAPIGateway'";
+                return;
+            }
+
+            var authToken = authenticationRepository.GetToken(authUrl, clientId, clientSecret);
+
+            if (authToken == null)
+            {
+                response.Result = false;
+                response.ErrorMessage = "Unable to retrieve the authentication token for file upload, please make sure the configurations are correct!";
+                return;
+            }
+
+            CallOpenShiftGenerateInvoiceAPI(request, ref response, authToken, uploadAPi);
+        }
+
+        private void CallOpenShiftGenerateInvoiceAPI(CASInvoice request, ref ICASGenerateInvoiceResponse response,
+            AccessToken authToken, string endPoint)
+        {
+            using (var client = new System.Net.Http.HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + authToken.access_token);
+
+                Constants.CASAPIUrlDictionary.TryGetValue("GenerateInvoiceURL", out string searchURL);
+
+                endPoint = $"{endPoint}" + searchURL;
+                _tracingService.Trace("EndPoint: " + endPoint);
+                // Convert the request object into JSON content
+                var jsonContent = JsonConvert.SerializeObject(request);
+                _tracingService.Trace("Request JSON: " + jsonContent);
+                var httpContent = new System.Net.Http.StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json");
+
+                var httpResponse = client.PostAsync(endPoint, httpContent).Result;
+
+                if (!httpResponse.IsSuccessStatusCode)
+                {
+                    response.Result = false;
+                    response.ErrorMessage = $"Failed to retrieve data from Open Shift API. HTTP Status: {httpResponse.StatusCode}, Reason: {httpResponse.ReasonPhrase}";
+                }
+
+                var responseData = httpResponse.Content.ReadAsStringAsync().Result;
+
+                string invoiceNumber = null;
+                _tracingService.Trace("Response JSON: " + responseData);
+
+                if (!string.IsNullOrWhiteSpace(responseData))
+                {
+                    var jObject = JObject.Parse(responseData);
+
+                    invoiceNumber = jObject["invoice_number"]?.ToString();
+                    response.ErrorMessage = jObject["CAS-Returned-Messages"]?.ToString();
+                }
+                if (response.ErrorMessage == "SUCCEEDED")
+                    response.Result = true;
+                else
+                {
+                    if (response.ErrorMessage == null)
+                    {
+                        string type = null;
+                        string title = null;
+                        int status = 0;
+                        string traceId = null;
+                        string errorKey = null;
+                        string errorMessage = null;
+
+                        var obj = JObject.Parse(responseData);
+
+                        type = obj["type"]?.ToString();
+                        title = obj["title"]?.ToString();
+                        status = obj["status"]?.ToObject<int>() ?? 0;
+                        traceId = obj["traceId"]?.ToString();
+
+                        var errors = obj["errors"] as JObject;
+                        if (errors != null && errors.Properties().Any())
+                        {
+                            var firstError = errors.Properties().First();
+                            errorKey = firstError.Name;
+                            var messages = firstError.Value as JArray;
+                            if (messages != null && messages.Count > 0)
+                            {
+                                errorMessage = messages[0]?.ToString();
+                            }
+                        }
+                        
+                        response.ErrorMessage = errorMessage;
+                    }
+                    response.Result = false;
+                }
+                response.Invoice = invoiceNumber;
+
             }
         }
     }

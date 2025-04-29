@@ -1,5 +1,4 @@
-﻿using DFA.Crm.V3.Common.Model.Interface;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -12,5 +11,7 @@ namespace DFA.Crm.V4.Core.CAS.Contract
         void SearchPayment();
 
         void SearchSupplier();
+
+        void GenerateInvoice(Guid projectclaimid);
     }
 }

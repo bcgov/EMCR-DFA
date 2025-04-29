@@ -6,11 +6,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{368D5A15-DD9B-42EF-B564-DF8661BFD364}</ProjectGuid>
+    <ProjectGuid>{DFCC21B4-B2E7-404F-A758-597E67699FE5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DFA.Crm.V4.CustomAPI</RootNamespace>
-    <AssemblyName>DFA.Crm.V4.CustomAPI</AssemblyName>
+    <RootNamespace>DFA.Crm.V4.Plugin.ProjectClaim</RootNamespace>
+    <AssemblyName>DFA.Crm.V4.Plugin.ProjectClaim</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -38,11 +38,11 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>DFA.Crm.V4.CustomAPI.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>DFA.Crm.V4.Plugin.ProjectClaim.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=9.0.0.4, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.9.0.4\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Crm.Sdk.Proxy, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -51,6 +51,18 @@
     </Reference>
     <Reference Include="Microsoft.Extensions.Caching.Abstractions, Version=9.0.0.4, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Caching.Abstractions.9.0.4\lib\net462\Microsoft.Extensions.Caching.Abstractions.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=9.0.0.4, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.9.0.4\lib\net462\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=9.0.0.4, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.9.0.4\lib\net462\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=9.0.0.4, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.9.0.4\lib\net462\Microsoft.Extensions.Options.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Extensions.Primitives, Version=9.0.0.4, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
@@ -76,12 +88,17 @@
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Configuration.ConfigurationManager, Version=9.0.0.4, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Configuration.ConfigurationManager.9.0.4\lib\net462\System.Configuration.ConfigurationManager.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Core" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=9.0.0.4, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.9.0.4\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.IdentityModel" />
@@ -113,6 +130,7 @@
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Text.Encodings.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Encodings.Web.8.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Text.Json, Version=8.0.0.5, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Json.8.0.5\lib\net462\System.Text.Json.dll</HintPath>
@@ -138,22 +156,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CASSupplierSearch.cs" />
-    <Compile Include="CASInvoiceSearch.cs" />
-    <Compile Include="CASPaymentSearch.cs" />
+    <Compile Include="CASPostAsync.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="DFA.Crm.V4.CustomAPI.snk" />
+    <None Include="DFA.Crm.V4.Plugin.ProjectClaim.snk" />
     <None Include="ILMerge.props" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ILMergeOrder.txt" />
   </ItemGroup>
-  <Import Project="..\DFA.Crm.V4.Common\PABI.Crm.Common.projitems" Label="Shared" />
   <Import Project="..\DFA.Crm.V4.Core\PABI.Crm.Core.projitems" Label="Shared" />
+  <Import Project="..\DFA.Crm.V4.Common\PABI.Crm.Common.projitems" Label="Shared" />
   <Import Project="..\DFA.Crm.V4.Data\PABI.Crm.Data.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

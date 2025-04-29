@@ -6,7 +6,7 @@ namespace DFA.Crm.V3.Common.Model.Interface
 {
     interface ICASInvoiceSearchResponse : ICASBaseSearchResponse
     {
-        CASInvoice Invoice { get; set; }
+        string Invoice { get; set; }
 
     }
 }

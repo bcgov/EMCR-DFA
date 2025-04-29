@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Activities;
 using System.Activities.Statements;
 
-namespace DFA.Crm.V4.CustomAPI
+namespace DFA.Crm.V4.CustomAPI.CAS
 {
     public class CASSupplierSearch : IPlugin
     {

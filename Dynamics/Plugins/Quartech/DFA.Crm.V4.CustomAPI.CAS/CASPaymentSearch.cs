@@ -5,17 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Activities;
-using System.Activities.Statements;
 
-namespace DFA.Crm.V4.CustomAPI
+namespace DFA.Crm.V4.CustomAPI.CAS
 {
-    public class CASInvoiceSearch : IPlugin
+    public class CASPaymentSearch : IPlugin
     {
         public void Execute(IServiceProvider serviceProvider)
         {
             var casService = new CASIntegration(serviceProvider);
-            casService.SearchInvoice();
+            casService.SearchPayment();
         }
     }
 }
