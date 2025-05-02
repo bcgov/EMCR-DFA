@@ -1,22 +1,11 @@
 ﻿using System;
-using System.Activities;
-using System.Activities.Statements;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Remoting.Contexts;
-using System.Text;
-using System.Threading;
-using System.Windows.Navigation;
 using DFA.Crm.V4.Common.Constants;
 using DFA.Crm.V4.Common.Model;
-using DFA.Crm.V4.Core.Base.Contract;
-using DFA.Crm.V4.Core.Base.Process;
 using DFA.Crm.V4.Core.Project.Contract;
 using DFA.Crm.V4.Data.Base.Contract;
-using DFA.Crm.V4.Data.Base.Repository;
-using DFA.Crm.V4.WorkFlow;
 using Microsoft.Xrm.Sdk;
-using static DFA.Crm.V4.Common.Constants.Constants;
 using DFA.Crm.V4.Common.Extensions;
 using DFA.Crm.V4.Common;
 

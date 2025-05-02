@@ -202,5 +202,18 @@ namespace DFA.Crm.V4.Common.Constants
                 {"xyz", "chemical/x-xyz"},
                 {"zip", "application/zip"}
               };
+
+        public static readonly Dictionary<string, string> CASAPIUrlDictionary = new Dictionary<string, string>
+        {
+            { "InvoiceURL", "invoice/" },
+            { "PaymentURL", "payment/" },
+            { "GenerateInvoiceURL", "Invoice/" },
+            { "SupplierBusinessNumber", "supplier/" },
+            { "SupplierNumber", "supplier/" },
+            { "SupplierPostalCode", "supplierbyname/" },
+            { "SupplierSIN", "supplier/" },
+            { "SupplierSiteCode", "supplier/#/site" },
+            { "SupplierPartialName", "suppliersearch/" }
+        };
     }
 }

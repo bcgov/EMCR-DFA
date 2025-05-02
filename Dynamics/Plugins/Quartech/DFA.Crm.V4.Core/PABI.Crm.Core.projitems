@@ -13,6 +13,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Base\Process\DeleteRecordProcess.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)bcgov_documenturl\Contract\ICreateDocumentTemplateProcess.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)bcgov_documenturl\Process\CreateDocumentTemplateProcess.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CAS\Contract\ICASIntegration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CAS\Process\CASIntegration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Project\Contract\IProjectOperationsProcess.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Project\Process\ProjectOperationsProcess.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)S3\Contract\IUploadDocumentToS3Process.cs" />
