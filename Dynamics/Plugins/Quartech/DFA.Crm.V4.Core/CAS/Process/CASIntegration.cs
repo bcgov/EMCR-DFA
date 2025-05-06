@@ -129,7 +129,7 @@ namespace DFA.Crm.V4.Core.CAS.Process
                 response.ErrorMessage = error;
                 return;
             }
-
+            _tracingService.Trace("Auth token retrieved successfully: " + authToken.access_token);
             CallOpenShiftInvoiceSearchAPI(request, ref response, authToken, apiConfig.InterfaceUrl);
         }
         private void CallOpenShiftInvoiceSearchAPI(ICASInvoiceSearchRequest request, ref ICASInvoiceSearchResponse response,
@@ -141,25 +141,36 @@ namespace DFA.Crm.V4.Core.CAS.Process
 
                 Constants.CASAPIUrlDictionary.TryGetValue("InvoiceURL", out string searchURL);
                 endPoint = $"{endPoint}" + searchURL + request.InvoiceNumber + "/" + request.SupplierNumber + "/" + request.SupplierSiteCode;
-                CheckResponse(_tracingService, "", ref response, endPoint, client);
+
+                ICASBaseSearchResponse baseResponse = response;
+                CheckResponse(_tracingService, "", ref baseResponse, endPoint, client);
+
+                response = (ICASInvoiceSearchResponse)baseResponse;
+                response.Invoice = response.APIResult;
             }
         }
 
-        private void CheckResponse(ITracingService _TracingService, string requestBody, ref ICASInvoiceSearchResponse response, string endPoint, HttpClient client)
+        private void CheckResponse(ITracingService _TracingService, string requestBody, ref ICASBaseSearchResponse response, string endPoint, HttpClient client)
         {
+            _tracingService.Trace("Sending HTTP request to: " + endPoint);
+
             var httpResponse = client.GetAsync(endPoint).Result;
 
             string content = httpResponse.Content.ReadAsStringAsync().Result;
+            _tracingService.Trace("HTTP response received.");
             StringBuilder errorMessage = new StringBuilder();
-            errorMessage.AppendLine($"Failed to retrieve data from Open Shift API. ");
 
             if (httpResponse == null)
             {
                 errorMessage.AppendLine("HTTP response is null.");
             }
-
-            if (httpResponse.StatusCode != HttpStatusCode.OK)
+            else if (httpResponse.StatusCode != HttpStatusCode.OK)
             {
+                _tracingService.Trace("HTTP response is not OK.");
+                if (httpResponse.IsSuccessStatusCode)
+                {
+
+                }
                 errorMessage.AppendLine($"HTTP Status: {(int)httpResponse.StatusCode} {httpResponse.StatusCode}");
                 errorMessage.AppendLine($"Reason: {httpResponse.ReasonPhrase}");
                 errorMessage.AppendLine($"RequestUri: {httpResponse.RequestMessage?.RequestUri}");
@@ -175,7 +186,7 @@ namespace DFA.Crm.V4.Core.CAS.Process
             {
                 var responseData = httpResponse.Content.ReadAsStringAsync().Result;
                 response.Result = true;
-                response.Invoice = responseData;
+                response.APIResult = responseData;
             }
         }
 
@@ -268,18 +279,11 @@ namespace DFA.Crm.V4.Core.CAS.Process
                 Constants.CASAPIUrlDictionary.TryGetValue("PaymentURL", out string searchURL);
                 endPoint = $"{endPoint}" + searchURL + request.InvoiceNumber + "/" + request.SupplierNumber + "/" + request.SupplierSiteCode;
 
-                var httpResponse = client.GetAsync(endPoint).Result;
+                ICASBaseSearchResponse baseResponse = response;
+                CheckResponse(_tracingService, "", ref baseResponse, endPoint, client);
 
-                if (!httpResponse.IsSuccessStatusCode)
-                {
-                    LogHttpResponse(_tracingService, "", response, httpResponse);
-                }
-                else
-                {
-                    var responseData = httpResponse.Content.ReadAsStringAsync().Result;
-                    response.Result = true;
-                    response.Payment = responseData;
-                }
+                response = (ICASPaymentSearchResponse)baseResponse;
+                response.Payment = response.APIResult;
             }
         }
         public void SearchSupplier()
@@ -398,28 +402,11 @@ namespace DFA.Crm.V4.Core.CAS.Process
                         endPoint = $"{endPoint}{searchURL}{request.PartialSupplierNameWithWildcard}";
                         break;
                 }
-                var httpResponse = client.GetAsync(endPoint).Result;
+                ICASBaseSearchResponse baseResponse = response;
+                CheckResponse(_tracingService, "", ref baseResponse, endPoint, client);
 
-                if (!httpResponse.IsSuccessStatusCode)
-                {
-                    LogHttpResponse(_tracingService, "", response, httpResponse);
-                }
-                else
-                {
-                    var responseData = httpResponse.Content.ReadAsStringAsync().Result;
-                    var supplierList = ExtractSupplierArray(responseData);
-
-                    if (supplierList != null)
-                    {
-                        response.Suppliers = supplierList;
-                        response.Result = true;
-                    }
-                    else
-                    {
-                        response.Result = false;
-                        response.ErrorMessage = "No valid supplier data found.";
-                    }
-                }
+                response = (ICASSupplierSearchResponse)baseResponse;
+                response.Suppliers = response.APIResult;
             }
         }
 
@@ -589,13 +576,13 @@ namespace DFA.Crm.V4.Core.CAS.Process
                 var jsonContent = JsonConvert.SerializeObject(request);
                 var httpContent = new System.Net.Http.StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json");
 
-                var httpResponse = client.PostAsync(endPoint, httpContent).Result;
-                if (httpResponse.StatusCode != HttpStatusCode.OK)
-                {
-                    LogHttpResponse(_tracingService, "", response, httpResponse);
-                }
+                ICASBaseSearchResponse baseResponse = response;
+                CheckResponse(_tracingService, "", ref baseResponse, endPoint, client);
 
-                var responseData = httpResponse.Content.ReadAsStringAsync().Result;
+                response = (ICASGenerateInvoiceResponse)baseResponse;
+                response.Invoice = response.APIResult;
+
+                var responseData = response.APIResult;
                 string invoiceNumber = null;
 
                 if (!string.IsNullOrWhiteSpace(responseData))
@@ -645,12 +632,6 @@ namespace DFA.Crm.V4.Core.CAS.Process
 
             }
         }
-
-        private void LogHttpResponse(ITracingService _TracingService, string request, ICASBaseSearchResponse response, HttpResponseMessage httpResponse)
-        {
-
-        }
-
 
         private string ExtractSupplierArray(string json)
         {
