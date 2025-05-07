@@ -9,5 +9,7 @@ namespace DFA.Crm.V3.Common.Model.Interface
         bool Result { get; set; }
         string ErrorMessage { get; set; }
 
+        string APIResult { get; set; }
+
     }
 }

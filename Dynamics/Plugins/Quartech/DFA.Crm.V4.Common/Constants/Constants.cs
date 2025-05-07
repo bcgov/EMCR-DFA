@@ -212,7 +212,7 @@ namespace DFA.Crm.V4.Common.Constants
             { "SupplierNumber", "supplier/" },
             { "SupplierPostalCode", "supplierbyname/" },
             { "SupplierSIN", "supplier/" },
-            { "SupplierSiteCode", "supplier/#/site" },
+            { "SupplierSiteCode", "supplier/suppliernumber/site/" },
             { "SupplierPartialName", "suppliersearch/" }
         };
     }

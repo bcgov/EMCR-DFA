@@ -14,5 +14,6 @@ namespace DFA.Crm.V3.Common.Model.CAS
         public bool Result { get; set; }
         public string ErrorMessage { get; set; }
         public string Suppliers { get; set; }
+        public string APIResult { get; set; }
     }
 }
