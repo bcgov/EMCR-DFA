@@ -29,6 +29,7 @@ namespace DFA.Crm.V4.Core.CAS.Process
 {
     class CASIntegration : ICASIntegration
     {
+        private const string NoDataFound = "No data found or invalid response format.";
         private readonly IExecutionContext _executionContext;
         private readonly IOrganizationService _organizationService;
         private readonly IOrganizationService _systemService;
@@ -58,7 +59,7 @@ namespace DFA.Crm.V4.Core.CAS.Process
             ICASInvoiceSearchRequest request = new CASInvoiceSearchRequest();
             ICASInvoiceSearchResponse response = new CASInvoiceSearchResponse();
 
-            if (_pluginExecutionContext.MessageName == null || !_pluginExecutionContext.MessageName.Equals("dfa_cas_invoice_search_capi"))
+            if (_pluginExecutionContext.MessageName == null || !_pluginExecutionContext.MessageName.Equals(MessageKeys.InvoiceCAPI))
             {
                 _tracingService.Trace("MessageName is null or wrong");
                 response.Result = false;
@@ -66,11 +67,11 @@ namespace DFA.Crm.V4.Core.CAS.Process
             }
             else
             {
-                if (_pluginExecutionContext.InputParameters.Contains("dfa_cas_invoice_search_capi_request"))
+                if (_pluginExecutionContext.InputParameters.Contains(MessageKeys.InvoiceRequest))
                 {
                     try
                     {
-                        var json = _pluginExecutionContext.InputParameters["dfa_cas_invoice_search_capi_request"]?.ToString();
+                        var json = _pluginExecutionContext.InputParameters[MessageKeys.InvoiceRequest]?.ToString();
 
                         request = JsonConvert.DeserializeObject<CASInvoiceSearchRequest>(json);
 
@@ -108,7 +109,7 @@ namespace DFA.Crm.V4.Core.CAS.Process
                 }
             }
 
-            _pluginExecutionContext.OutputParameters["dfa_cas_invoice_search_capi_response"] = JsonConvert.SerializeObject(response);
+            _pluginExecutionContext.OutputParameters[MessageKeys.InvoiceResponse] = JsonConvert.SerializeObject(response);
         }
 
         private void CASInvoiceSearch(Ibcgov_configRepository bcgovConfigRepository, IAuthenticationRepository authenticationRepository,
@@ -195,7 +196,7 @@ namespace DFA.Crm.V4.Core.CAS.Process
             ICASInvoiceSearchRequest request = new CASInvoiceSearchRequest();
             ICASPaymentSearchResponse response = new CASPaymentSearchResponse();
 
-            if (_pluginExecutionContext.MessageName == null || !_pluginExecutionContext.MessageName.Equals("dfa_cas_payment_search_capi"))
+            if (_pluginExecutionContext.MessageName == null || !_pluginExecutionContext.MessageName.Equals(MessageKeys.PaymentCAPI))
             {
                 _tracingService.Trace("MessageName is null or wrong");
                 response.Result = false;
@@ -203,11 +204,11 @@ namespace DFA.Crm.V4.Core.CAS.Process
             }
             else
             {
-                if (_pluginExecutionContext.InputParameters.Contains("dfa_cas_payment_search_capi_request"))
+                if (_pluginExecutionContext.InputParameters.Contains(MessageKeys.PaymentRequest))
                 {
                     try
                     {
-                        var json = _pluginExecutionContext.InputParameters["dfa_cas_payment_search_capi_request"]?.ToString();
+                        var json = _pluginExecutionContext.InputParameters[MessageKeys.PaymentRequest]?.ToString();
 
                         request = JsonConvert.DeserializeObject<CASInvoiceSearchRequest>(json);
 
@@ -245,7 +246,7 @@ namespace DFA.Crm.V4.Core.CAS.Process
                 }
             }
 
-            _pluginExecutionContext.OutputParameters["dfa_cas_payment_search_capi_response"] = JsonConvert.SerializeObject(response);
+            _pluginExecutionContext.OutputParameters[MessageKeys.PaymentResponse] = JsonConvert.SerializeObject(response);
 
         }
         private void CASPaymentSearch(Ibcgov_configRepository bcgovConfigRepository, IAuthenticationRepository authenticationRepository,
@@ -291,7 +292,7 @@ namespace DFA.Crm.V4.Core.CAS.Process
             ICASSupplierSearchRequest request = new CASSupplierSearchRequest();
             ICASSupplierSearchResponse response = new CASSupplierSearchResponse();
 
-            if (_pluginExecutionContext.MessageName == null || !_pluginExecutionContext.MessageName.Equals("dfa_cas_supplier_search_capi"))
+            if (_pluginExecutionContext.MessageName == null || !_pluginExecutionContext.MessageName.Equals(MessageKeys.SupplierCAPI))
             {
                 _tracingService.Trace("MessageName is null or wrong");
                 response.Result = false;
@@ -299,11 +300,11 @@ namespace DFA.Crm.V4.Core.CAS.Process
             }
             else
             {
-                if (_pluginExecutionContext.InputParameters.Contains("dfa_cas_supplier_search_capi_request"))
+                if (_pluginExecutionContext.InputParameters.Contains(MessageKeys.SupplierRequest))
                 {
                     try
                     {
-                        var json = _pluginExecutionContext.InputParameters["dfa_cas_supplier_search_capi_request"]?.ToString();
+                        var json = _pluginExecutionContext.InputParameters[MessageKeys.SupplierRequest]?.ToString();
 
                         request = JsonConvert.DeserializeObject<CASSupplierSearchRequest>(json);
 
@@ -341,7 +342,7 @@ namespace DFA.Crm.V4.Core.CAS.Process
                 }
             }
 
-            _pluginExecutionContext.OutputParameters["dfa_cas_supplier_search_capi_response"] = JsonConvert.SerializeObject(response);
+            _pluginExecutionContext.OutputParameters[MessageKeys.SupplierResponse] = JsonConvert.SerializeObject(response);
         }
 
         private void CASSupplierSearch(Ibcgov_configRepository bcgovConfigRepository, IAuthenticationRepository authenticationRepository,
@@ -387,11 +388,11 @@ namespace DFA.Crm.V4.Core.CAS.Process
                         break;
                     case 2:
                         Constants.CASAPIUrlDictionary.TryGetValue("SupplierPostalCode", out searchURL);
-                        endPoint = $"{endPoint}{searchURL} {request.SupplierName}";
+                        endPoint = $"{endPoint}{searchURL}{request.SupplierName}/{request.PostalCode}";
                         break;
                     case 3:
                         Constants.CASAPIUrlDictionary.TryGetValue("SupplierSIN", out searchURL);
-                        endPoint = $"{endPoint}{searchURL} {request.SupplierLastName}";
+                        endPoint = $"{endPoint}{searchURL}{request.SupplierLastName}/lastname/{request.SIN}/sin";
                         break;
                     case 4:
                         Constants.CASAPIUrlDictionary.TryGetValue("SupplierSiteCode", out searchURL);
@@ -406,7 +407,18 @@ namespace DFA.Crm.V4.Core.CAS.Process
                 CheckResponse(_tracingService, "", ref baseResponse, endPoint, client);
 
                 response = (ICASSupplierSearchResponse)baseResponse;
-                response.Suppliers = response.APIResult;
+
+                var temp = ExtractSupplierArray(response.APIResult);
+                if (temp != null)
+                {
+                    response.Suppliers = temp;
+                }
+                else
+                {
+                    response.Suppliers = null;
+                    response.Result = false;
+                    response.ErrorMessage = NoDataFound;
+                }
             }
         }
 
@@ -641,11 +653,11 @@ namespace DFA.Crm.V4.Core.CAS.Process
 
                 if (token.Type == JTokenType.Array)
                 {
-                    return json;
+                    return token.Count() > 0 ? json : null;
                 }
                 else if (token.Type == JTokenType.Object && token["items"] is JArray itemsArray)
                 {
-                    return itemsArray.ToString();
+                    return itemsArray.Count > 0 ? itemsArray.ToString() : null;
                 }
             }
             catch (JsonException ex)
@@ -721,6 +733,19 @@ namespace DFA.Crm.V4.Core.CAS.Process
             public string ClientSecret { get; set; }
             public string InterfaceUrl { get; set; }
             public string IsProduction { get; set; }
+        }
+
+        private static class MessageKeys
+        {
+            public const string InvoiceRequest = "dfa_cas_invoice_search_capi_request";
+            public const string InvoiceResponse = "dfa_cas_invoice_search_capi_response";
+            public const string InvoiceCAPI = "dfa_cas_invoice_search_capi";
+            public const string PaymentRequest = "dfa_cas_payment_search_capi_request";
+            public const string PaymentResponse = "dfa_cas_payment_search_capi_response";
+            public const string PaymentCAPI = "dfa_cas_payment_search_capi";
+            public const string SupplierRequest = "dfa_cas_supplier_search_capi_request";
+            public const string SupplierResponse = "dfa_cas_supplier_search_capi_response";
+            public const string SupplierCAPI = "dfa_cas_supplier_search_capi";
         }
     }
 
