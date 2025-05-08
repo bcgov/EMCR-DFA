@@ -206,7 +206,7 @@ namespace DFA.Crm.V4.Common.Constants
         public static readonly Dictionary<string, string> CASAPIUrlDictionary = new Dictionary<string, string>
         {
             { "InvoiceURL", "invoice/" },
-            { "PaymentURL", "payment/" },
+            { "PaymentURL", "invoice/payment/" },
             { "GenerateInvoiceURL", "Invoice/" },
             { "SupplierBusinessNumber", "supplier/" },
             { "SupplierNumber", "supplier/" },

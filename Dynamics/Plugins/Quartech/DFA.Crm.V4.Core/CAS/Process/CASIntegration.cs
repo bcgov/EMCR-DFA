@@ -258,7 +258,7 @@ namespace DFA.Crm.V4.Core.CAS.Process
 
         }
         private void CASPaymentSearch(Ibcgov_configRepository bcgovConfigRepository, IAuthenticationRepository authenticationRepository,
-            CASPaymentSearchRequest request, ref ICASPaymentSearchResponse response)
+            ICASPaymentSearchRequest request, ref ICASPaymentSearchResponse response)
         {
             var configuration = bcgovConfigRepository.GetAllGroupConfigs("OpenShiftAPIGateway");
 
@@ -278,7 +278,7 @@ namespace DFA.Crm.V4.Core.CAS.Process
 
             CallOpenShiftPaymentSearchAPI(request, ref response, authToken, apiConfig.InterfaceUrl);
         }
-        private void CallOpenShiftPaymentSearchAPI(CASPaymentSearchRequest request, ref ICASPaymentSearchResponse response,
+        private void CallOpenShiftPaymentSearchAPI(ICASPaymentSearchRequest request, ref ICASPaymentSearchResponse response,
             AccessToken authToken, string endPoint)
         {
             using (var client = new System.Net.Http.HttpClient())
@@ -597,10 +597,9 @@ namespace DFA.Crm.V4.Core.CAS.Process
                 endPoint = $"{endPoint}" + searchURL;
                 // Convert the request object into JSON content
                 var jsonContent = JsonConvert.SerializeObject(request);
-                var httpContent = new System.Net.Http.StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json");
 
                 ICASBaseSearchResponse baseResponse = response;
-                CheckResponse(_tracingService, "", ref baseResponse, endPoint, client, "POST");
+                CheckResponse(_tracingService, jsonContent, ref baseResponse, endPoint, client, "POST");
 
                 response = (ICASGenerateInvoiceResponse)baseResponse;
                 response.Invoice = response.APIResult;
