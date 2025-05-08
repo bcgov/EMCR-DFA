@@ -210,10 +210,10 @@ namespace DFA.Crm.V4.Common.Constants
             { "GenerateInvoiceURL", "Invoice/" },
             { "SupplierBusinessNumber", "supplier/" },
             { "SupplierNumber", "supplier/" },
-            { "SupplierPostalCode", "supplierbyname/" },
+            { "SupplierPostalCode", "supplier/supplierbyname/" },
             { "SupplierSIN", "supplier/" },
             { "SupplierSiteCode", "supplier/suppliernumber/site/" },
-            { "SupplierPartialName", "suppliersearch/" }
+            { "SupplierPartialName", "supplier/suppliersearch/" }
         };
     }
 }
