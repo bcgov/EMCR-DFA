@@ -89,7 +89,7 @@ namespace DFA.Crm.V4.WorkFlow
 
                 if (documentData != null)
                 {
-                    Ibcgov_documenturlRepository ibcgov_DocumenturlRepository = new bcgov_documenturlRepository(xrmService.SystemService);
+                    Ibcgov_documenturlRepository ibcgov_DocumenturlRepository = new bcgov_documenturlRepository(xrmService.UserService);
 
                     ICreateDocumentTemplateProcess process = new CreateDocumentTemplateProcess(xrmService, ibcgov_DocumenturlRepository);
 

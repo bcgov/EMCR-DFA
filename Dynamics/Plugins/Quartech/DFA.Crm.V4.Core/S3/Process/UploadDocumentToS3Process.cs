@@ -25,7 +25,7 @@ namespace DFA.Crm.V4.Core.S3.Process
             this.lbcgov_ConfigRepository = lbcgov_ConfigRepository;
         }
 
-        public IUploadToS3Response Execute(IUploadToS3Request request)
+        public IS3Response Execute(IUploadToS3Request request)
         {
             if (request == null || request?.DerivedFileName == null || request?.DocumentContent == null || request.RegardingEntitySchemaName == null)
                 throw new Exception($"Input parameters are null or empty DocumentFileName: {request?.DocumentFileName}, DocumentContent: {request?.DocumentContent}, RegardingEntitySchemaName: {request.RegardingEntitySchemaName}");
@@ -64,7 +64,7 @@ namespace DFA.Crm.V4.Core.S3.Process
             return accessToken.access_token;
         }
 
-        public IUploadToS3Response UploadFileToS3(IUploadToS3Request request, string url, string token)
+        public IS3Response UploadFileToS3(IUploadToS3Request request, string url, string token)
         {
             using (var fileStream = new System.IO.MemoryStream(Convert.FromBase64String(request.DocumentContent)))
             {

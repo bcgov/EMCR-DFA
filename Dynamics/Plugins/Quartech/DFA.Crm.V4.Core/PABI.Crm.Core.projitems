@@ -17,7 +17,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)CAS\Process\CASIntegration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Project\Contract\IProjectOperationsProcess.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Project\Process\ProjectOperationsProcess.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)S3\Contract\IDeleteocumentFromS3Process.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)S3\Contract\IUploadDocumentToS3Process.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)S3\Process\DeleteocumentFromS3Process.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)S3\Process\UploadDocumentToS3Process.cs" />
   </ItemGroup>
 </Project>

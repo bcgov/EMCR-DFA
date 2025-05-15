@@ -115,6 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CreateDocumentMetadata.cs" />
+    <Compile Include="DeleteS3Document.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DeleteRecord.cs" />

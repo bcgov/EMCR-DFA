@@ -22,7 +22,7 @@ namespace DFA.Crm.V4.Core.bcgov_documenturl.Process
             this.ibcgov_DocumenturlRepository = ibcgov_DocumenturlRepository;
         }
 
-        public IUploadToS3Response Execute(IUploadToS3Request request)
+        public IS3Response Execute(IUploadToS3Request request)
         {
             if(request != null)
             {
@@ -77,7 +77,7 @@ namespace DFA.Crm.V4.Core.bcgov_documenturl.Process
                 entity["bcgov_size"] = request.DocumentSize;
 
             if (request.ReceivedDate > DateTime.MinValue)
-                entity["bcgov_receiveddate"] = request.ReceivedDate;
+                entity["dfa_dateuploaded"] = request.ReceivedDate;
 
             if (!string.IsNullOrEmpty(request.DocumentFileName))
             {
