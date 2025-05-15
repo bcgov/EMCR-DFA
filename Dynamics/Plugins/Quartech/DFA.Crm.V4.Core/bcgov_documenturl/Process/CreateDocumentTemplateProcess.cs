@@ -77,7 +77,7 @@ namespace DFA.Crm.V4.Core.bcgov_documenturl.Process
                 entity["bcgov_size"] = request.DocumentSize;
 
             if (request.ReceivedDate > DateTime.MinValue)
-                entity["bcgov_receiveddate"] = request.ReceivedDate;
+                entity["dfa_dateuploaded"] = request.ReceivedDate;
 
             if (!string.IsNullOrEmpty(request.DocumentFileName))
             {
